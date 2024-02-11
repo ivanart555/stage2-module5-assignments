@@ -19,16 +19,16 @@ public class LocalProcessor {
     private Long period = 10_000_000_000_000L;
     private String version;
     private Integer price;
-    Scanner scanner;
+    private Scanner informationScanner;
     private List<String> strings;
 
     public LocalProcessor(String name, Long period, String version, Integer price,
-                          Scanner scanner, LinkedList<String> strings) {
+                          Scanner informationScanner, LinkedList<String> strings) {
         this.name = name;
         this.period = period;
         this.version = version;
         this.price = price;
-        this.scanner = scanner;
+        this.informationScanner = informationScanner;
         this.strings = strings;
     }
 
@@ -60,12 +60,12 @@ public class LocalProcessor {
 
     @ReadFullProcessorNameAnnotation
     public void readFullProcessorName(File file) throws FileNotFoundException {
-        scanner = new Scanner(file);
+        informationScanner = new Scanner(file);
         StringBuilder sb = new StringBuilder();
         sb.append(version);
 
-            while (scanner.hasNext()) {
-                sb.append(scanner.nextLine());
+            while (informationScanner.hasNext()) {
+                sb.append(informationScanner.nextLine());
             }
         version = sb.toString();
     }
