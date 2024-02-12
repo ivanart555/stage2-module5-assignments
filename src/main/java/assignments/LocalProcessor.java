@@ -2,9 +2,11 @@ package assignments;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import assignments.annotations.FullNameProcessorGeneratorAnnotation;
 import assignments.annotations.ListIteratorAnnotation;
@@ -21,9 +23,11 @@ public class LocalProcessor {
     private Integer price;
     private Scanner informationScanner;
     private List<String> strings;
+    private static final Logger LOGGER = Logger.getLogger(LocalProcessor.class.getName());
+    private StringBuilder sb;
 
     public LocalProcessor(String name, Long period, String version, Integer price,
-                          Scanner informationScanner, LinkedList<String> strings) {
+                          Scanner informationScanner, List<String> strings) {
         this.name = name;
         this.period = period;
         this.version = version;
@@ -37,16 +41,17 @@ public class LocalProcessor {
 
     @ListIteratorAnnotation
     public void listIterator(List<String> stringList) {
-        strings = new LinkedList<>(stringList);
+        strings = new ArrayList<>(stringList);
         for (int i = 0; i < period; i++) {
             System.out.println(strings.get(i).hashCode());
+            LOGGER.info(String.valueOf(strings.get(i).hashCode()));
         }
     }
 
     @FullNameProcessorGeneratorAnnotation
     public String fullNameProcessorGenerator(List<String> stringList) {
 
-        StringBuilder sb = new StringBuilder();
+        sb = new StringBuilder();
         sb.append(name);
 
         for (String x: strings) {
@@ -61,7 +66,7 @@ public class LocalProcessor {
     @ReadFullProcessorNameAnnotation
     public void readFullProcessorName(File file) throws FileNotFoundException {
         informationScanner = new Scanner(file);
-        StringBuilder sb = new StringBuilder();
+        sb = new StringBuilder();
         sb.append(version);
 
             while (informationScanner.hasNext()) {
