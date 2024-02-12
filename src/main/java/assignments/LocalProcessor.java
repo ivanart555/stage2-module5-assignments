@@ -3,11 +3,9 @@ package assignments;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
-
 import assignments.annotations.FullNameProcessorGeneratorAnnotation;
 import assignments.annotations.ListIteratorAnnotation;
 import assignments.annotations.ReadFullProcessorNameAnnotation;
@@ -42,9 +40,12 @@ public class LocalProcessor {
     @ListIteratorAnnotation
     public void listIterator(List<String> stringList) {
         strings = new ArrayList<>(stringList);
-        for (int i = 0; i < period; i++) {
-            System.out.println(strings.get(i).hashCode());
-            LOGGER.info(String.valueOf(strings.get(i).hashCode()));
+        try {
+            for (int i = 0; i < period; i++) {
+                LOGGER.info(String.valueOf(strings.get(i).hashCode()));
+            }
+        } catch (Exception e) {
+            throw new IllegalStateException(e.getCause());
         }
     }
 
